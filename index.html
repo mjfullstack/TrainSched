@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Train Schedule</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Firebase Reference -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script> -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAIVkk-iB5Vs9YL-vUuWFkWA3sPIgt5Lco",
+    authDomain: "trainschedule-45ea6.firebaseapp.com",
+    databaseURL: "https://trainschedule-45ea6.firebaseio.com",
+    projectId: "trainschedule-45ea6",
+    storageBucket: "trainschedule-45ea6.appspot.com",
+    messagingSenderId: "958220982718"
+  };
+  firebase.initializeApp(config);
+</script>
+
+  <!-- Moment.js Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <!-- <script src="https://raw.github.com/icambron/twix.js/master/bin/twix.js"></script> -->
+
+  <style>
+    #train-sched-table th, td {
+      display: inline-block;
+      width: 16.575%;
+    }
+    
+  </style>
+</head>
+
+<body>
+
+  <!-- rain Schedule -->
+  <div class="container">
+
+      <!-- Jumbotron -->
+      <div class="jumbotron" style="background-color: black; color: white">
+        <h1 class="text-center">ALL ABOARD! - Train Schedule</h1>
+        <h3 class="text-center">Anytime is Train Time!</h3>
+    </div>
+        
+    <div class="row">
+        <div class="col-md-12">
+        <!-- Current Train Schecule-->
+        <div class="card mb-4">
+            <div class="card-body">
+            <h3 class="card-title">Current Train Schecule</h3>
+            <table class="table table-sm table-hover" id='train-sched-table'>
+                <thead>
+                <tr>
+                    <th scope="col">Train Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Frequency</th>
+                    <th scope="col">Next Arrival</th>
+                    <th scope="col">Minutes Away</th>
+                </tr>
+                </thead>
+                <tbody id="train-sched-table-body">
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Add Train  -->
+        <div class="card mb-4 p-4">
+          <div class="card-body">
+            <h3 class="card-title">Add Train</h3>
+            <!-- Entry Form -->
+            <form>
+              <div class="form-group row">
+                <label for="train-name-input">Train Name</label>
+                <input class="form-control" id="train-name-input" placeholder="Mickey Express" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="train-dest-input">Destination</label>
+                <input class="form-control" id="train-dest-input" placeholder="Disneyland" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="train-first-input">First Train Time (HH:mm - Military Time)</label>
+                <input class="form-control" id="train-first-input" placeholder="23:00 (11:00 PM)" type="text">
+              </div>
+              <div class="form-group row">
+                <label for="train-freq-input">Frequency (Minutes)</label>
+                <input class="form-control" id="train-freq-input" placeholder="20" type="text">
+              </div>
+              <button class="btn btn-primary float-left" id="time-date-btn">Time-Date</button>
+              <button class="btn btn-primary float-right" id="add-train-btn">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+  <h1>Time-Date-Stamp</h1>
+  <div id="time-date-display"></div>
+
+  <hr>
+  
+  <!-- <h1>Length of Time Display</h1> -->
+  <div id="length-of-time-display"></div>
+
+  <hr>
+  <!-- <h1>Array Shuffle!</h1> -->
+  <div id="array-shuffle"></div>
+
+  <!-- JavaScript -->
+  <!-- <script src="timesheetLogic.js"></script> -->
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+</body>
+
+</html>
