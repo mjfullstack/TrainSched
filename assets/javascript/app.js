@@ -10,7 +10,7 @@ $(document).ready(function(){
 
     // At the initial load and on subsequent data value changes, get a snapshot of the current data. (I.E FIREBASE HERE)
     // This callback keeps the page updated when a value changes in firebase.
-    // database.ref().on("child_added", function(snapshot) {  // Returns a different object so must do display code DIFFERENTLY    // DATABASE LISTENER!!!
+    // database.ref().on("child_added", function(snapshot) {  // Returns a different object so must do display code DIFFERENTLY
     database.ref().on('value', function(snapshot) {  // DATABASE LISTENER!!!
     // We are now inside our .on function...
 
@@ -27,43 +27,9 @@ $(document).ready(function(){
         if (CURR_DEBUG) {
             console.log("----------- Start trainRowEntry -----------");
             console.log(trainRowEntry);
-            console.log("------------  End trainRowEntry -----------");
+            console.log("------------ End trainRowEntry ------------");
         }
 
-        // Do Calculations for these vars...
-        // TBD: ADD moment.today(); // TBD
-        var tNextArrival = 0; // TBD
-        // Current Time
-        var currTime = moment();
-        console.log("CURRENT TIME: " + currTime.format("hh:mm"));
-        console.log("CURRENT TIME: " + currTime.format("LLLL"));
-        console.log("CURRENT TIME: " + currTime);
-
-        // Difference between the times: Now - tFirstTimeConv
-        console.log("---------------------------------------------------")
-        console.log("Object.values(trainRowEntry = " , Object.values(trainRowEntry) );
-        console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tNameDB = " , Object.values(trainRowEntry)[0].tNameDB ); 
-        console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tDestDB = " , Object.values(trainRowEntry)[0].tDestDB ); 
-        console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tFirstTimeConvDB = " , moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB) ); 
-        console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tFreqDB = " , Object.values(trainRowEntry)[0].tFreqDB ); 
-        var diffTime = currTime.diff(moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB), "minutes");
-        // console.log("DIFFERENCE IN TIME currTime.diff(moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB), 'minutes') is: " , moment(diffTime));
-        console.log("DIFFERENCE IN TIME currTime.diff(moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB), 'minutes') is: " , diffTime);
-        console.log("---------------------------------------------------")
-
-        // Time apart (remainder)
-        var tFreqFromObj = Object.values(trainRowEntry)[0].tFreqDB;
-        console.log("tFreqFromObj = ", tFreqFromObj);
-        var tRemainder = diffTime % Object.values(trainRowEntry)[0].tFreqDB;
-        console.log("tRemainder = " + tRemainder);
-
-        // Minute Until Train
-        var tMinAway = Object.values(trainRowEntry)[0].tFreqDB - tRemainder;
-        console.log("MINUTES TILL TRAIN: " + tMinAway);
-
-        // Next Train
-        var tNextArrival = moment().add(tMinAway, "minutes");
-        console.log("ARRIVAL TIME: " + moment(tNextArrival).format("hh:mm"));
 
         // Clear out existing table, to allow for re-writing entire table without duplicating!
         $("#train-sched-table-body").html("");
@@ -71,7 +37,72 @@ $(document).ready(function(){
         snapshot.forEach(function(trainSnapshot) {
             var trainKey = trainSnapshot.key;
             var trainData = trainSnapshot.val();
-            console.log("trainKey =" + trainKey + "--- trainData = "+ trainData);
+
+            // Do Calculations for these vars...
+            // TBD: ADD moment.today(); // TBD
+            var tNextArrival = 0; // TBD
+            // Current Time
+            var currTime = moment();
+            console.log("CURRENT TIME: " + currTime.format("hh:mm"));
+            console.log("CURRENT TIME: " + currTime.format("LLLL"));
+            console.log("CURRENT TIME: " + currTime);
+
+            // Difference between the times: Now - tFirstTimeConv
+            console.log("----------------------- [0] Start, NEEDS FOR LOOP ----------------------------");
+            console.log("Object.values(trainRowEntry = " , Object.values(trainRowEntry) );
+            console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tNameDB = " , Object.values(trainRowEntry)[0].tNameDB ); 
+            console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tDestDB = " , Object.values(trainRowEntry)[0].tDestDB ); 
+            console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tFirstTimeConvDB = " , moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB) ); 
+            console.log("Object.values(trainRowEntry) -> trainRowEntry[0].tFreqDB = " , Object.values(trainRowEntry)[0].tFreqDB ); 
+            var diffTime = currTime.diff(moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB), "minutes");
+            console.log("DIFFERENCE IN TIME currTime.diff(moment(Object.values(trainRowEntry)[0].tFirstTimeConvDB), 'minutes') is: " , diffTime);
+            console.log("----------------------- [0] End, NEEDS FOR LOOP -----------------------------");
+
+            console.log("+++++++++++++++++++++++++ EACH Start  +++++++++++++++++++++++++");
+            console.log("trainKey = " + trainKey + " --- trainData = "+ trainData);
+            console.log("trainSnapshot -> trainData.tNameDB = " , trainData.tNameDB ); 
+            console.log("trainSnapshot -> trainData.tDestDB = " , trainData.tDestDB ); 
+            console.log("trainSnapshot -> trainData.moment(tFirstTimeConvDB) = " , moment(trainData.tFirstTimeConvDB) ); 
+            console.log("trainSnapshot -> trainData.tFreqDB = " , trainData.tFreqDB ); 
+            var diffTimeSnap = currTime.diff(moment(trainData.tFirstTimeConvDB), "minutes");
+            console.log("DIFFERENCE IN TIME currTime.diff(moment(trainData.tFirstTimeConvDB), 'minutes') is: " , diffTimeSnap);
+            console.log("++++++++++++++++++++++++ EACH End  +++++++++++++++++++++++++++");
+
+            // console.log("----------------------- EACH Start ---- ODD Array ------------------------");
+            // console.log("Object.values(trainSnapshot = " , Object.values(trainSnapshot) );
+            // console.log("Object.values(trainSnapshot) -> trainSnapshot.tNameDB = " , Object.values(trainSnapshot).tNameDB ); 
+            // console.log("Object.values(trainSnapshot) -> trainSnapshot.tDestDB = " , Object.values(trainSnapshot).tDestDB ); 
+            // console.log("Object.values(trainSnapshot) -> trainSnapshot.tFirstTimeConvDB = " , moment(Object.values(trainSnapshot).tFirstTimeConvDB) ); 
+            // console.log("Object.values(trainSnapshot) -> trainSnapshot.tFreqDB = " , Object.values(trainSnapshot).tFreqDB ); 
+            // var diffTimeSnap = currTime.diff(moment(Object.values(trainSnapshot).tFirstTimeConvDB), "minutes");
+            // console.log("DIFFERENCE IN TIME currTime.diff(moment(Object.values(trainSnapshot).tFirstTimeConvDB), 'minutes') is: " , diffTimeSnap);
+            // console.log("----------------------- EACH End ------ ODD Array -----------------------");
+
+
+            // Time apart (remainder)
+            var tFreqFromObj = Object.values(trainRowEntry)[0].tFreqDB;
+            console.log("tFreqFromObj = ", tFreqFromObj);
+            var tFreqSnapshot = trainData.tFreqDB;
+            console.log("tFreqSnapshot = ", tFreqSnapshot);
+            var tRemainder = diffTimeSnap % Object.values(trainRowEntry)[0].tFreqDB;
+            console.log("tRemainder = " + tRemainder);
+            var tRemainderSnap = diffTimeSnap % trainData.tFreqDB;
+            console.log("tRemainderSnap = " + tRemainderSnap);
+
+            // Minute Until Train
+            var tMinAway = Object.values(trainRowEntry)[0].tFreqDB - tRemainder;
+            console.log("MINUTES TILL TRAIN: " + tMinAway);
+            var tMinAwaySnap = trainData.tFreqDB - tRemainderSnap;
+            console.log("MINUTES TILL TRAIN Snap: " + tMinAwaySnap);
+
+            // Next Train
+            var tNextArrival = moment().add(tMinAway, "minutes");
+            console.log("ARRIVAL TIME: " + moment(tNextArrival).format("hh:mm"));
+            var tNextArrivalSnap = moment().add(tMinAwaySnap, "minutes");
+            console.log("ARRIVAL TIME Snap: " + moment(tNextArrivalSnap).format("hh:mm"));
+
+            // Where loop started previously...
+            console.log("trainKey = " + trainKey + " --- trainData = "+ trainData);
             console.log("trainData.tNameDB = " + trainData.tNameDB );
             console.log("trainData.tDestDB = " + trainData.tDestDB );
             console.log("trainData.tFirstTimeDB = " + trainData.tFirstTimeConvDB );
@@ -137,8 +168,8 @@ $(document).ready(function(){
         database.ref().push({ // Using PUSH creates child objects, vs SET overwrites data already there
             tNameDB: tName, // Posting this  object to the database in the cloud
             tDestDB: tDest, // Posting this  object to the database in the cloud
-            // tFirstTimeConvDB: tFirstTimeConv, // Posting this  object to the database in the cloud
-            tFirstTimeConvDB: myJSONtFirstTimeConv, // Posting this STRINGIFIED object to the database in the cloud
+            tFirstTimeConvDB: tFirstTimeConv, // Posting this  object to the database in the cloud
+            // tFirstTimeConvDB: myJSONtFirstTimeConv, // Posting this STRINGIFIED object to the database in the cloud
             tFreqDB: tFreq // Posting this  object to the database in the cloud
         });
 
@@ -182,30 +213,4 @@ $(document).ready(function(){
         $("#array-shuffle").append("<h3>AFTER SHUFFLE: &nbsp;&nbsp;myArray = " + myArray) + "</h3>";
 /*/       
     });
-
-
-
-
-
-// moment.js most widely used one in the world!
-// var randomDate = moment(1/1/89);
-// var randomFormat = moment().format("MM/DD/YYYY");
-        // var diffTime = currTime.diff(moment(myUNJSONtFirstTimeConvDB), "minutes");
-        // console.log("DIFFERENCE IN TIME via currTime.diff(moment(myUNJSONtFirstTimeConvDB), 'minutes') is: " + moment(diffTime));
-        // console.log("moment(trainRowEntry.tFirstTimeConvDB).format() = " + moment(trainRowEntry.tFirstTimeConvDB).format() );
-        // The above line gets Current Time, wanted a year ago which is in the database
-        // console.log("trainRowEntry[0].tNameDB = " + moment(trainRowEntry[0].tNameDB)); // Undefined
-        // console.log("trainRowEntry[0].tFirstTimeConvDB = " + trainRowEntry[0].tFirstTimeConvDB); // Undefined
-        // console.log("trainRowEntry[o].tFreqDB = " + trainRowEntry[0].tFreqDB); // Undefined
-        // var myUNJSONtFirstTimeConvDB = JSON.parse(trainRowEntry[0].tFirstTimeConvDB);
-        // var myUNJSONtFirstTimeConvDB = JSON.parse(trainRowEntry[0]);
-        // console.log("trainRowEntry[0].tFirstTimeConvDB = " + myUNJSONtFirstTimeConvDB );
-        // console.log("trainRowEntry[0].tFirstTimeConvDB = " + moment(myUNJSONtFirstTimeConvDB) );
-        // var tFirstTimeLessOneYr = moment(trainRowEntry.tFirstTimeConvDB);
-        // console.log("tFirstTimeLessOneYr: " + tFirstTimeLessOneYr.format());
-        // var reSubtract1Yr =  moment(trainRowEntry.tFirstTimeConvDB).subtract(1, "years").format();
-        // console.log("reSubtract1Yr = " + reSubtract1Yr)
-        // console.log("reSubtract1Yr = " + reSubtract1Yr);
-        // var diffTime = currTime.diff(tFirstTimeLessOneYr, "minutes");
-
 });
