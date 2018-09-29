@@ -50,10 +50,10 @@
         <div class="col-md-12">
             <!-- Current Train Schecule-->
             <!-- <div class="card mb-4"> -->
-                <div class="card-body">
+                <div class="card-body" id="train-sched-header">
                 <h3 class="card-title text-center">Current Train Schecule:<span id="curr-time"></span></h3>
                 <table class="table table-sm table-hover" id='train-sched-table'>
-                    <thead>
+                    <thead id="train-sched-table-head">
                     <tr>
                         <th scope="col">Train Name</th>
                         <th scope="col">Destination</th>
@@ -77,7 +77,9 @@
         <!-- Add Train  -->
         <div class="card mb-4 p-4">
           <div class="card-body">
-            <h3 class="card-title">Add Train</h3>
+              <h3 class="card-title" id="add-train-header">Add Train:<span>
+                  <img src="assets/images/logogoldlong.png" id="add-train-image" alt="assets/images/logogoldlong.png">
+              </span></h3>
             <!-- Entry Form -->
             <form>
               <div class="form-group row">

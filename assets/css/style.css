@@ -1,13 +1,13 @@
 #train-sched-table th, td {
   display: inline-block;
+  font-weight: bolder;
   width: 16.575%;
 }
 
-.card-title { 
-    /* text-decoration-line: underline; */
+#train-sched-table-head, #add-train-btn, .card-title {
     padding: 20px;
     background-color: black; 
-    color: white;
+    color: rgb(247, 206, 102);
     font-weight: bolder;
 }
 
@@ -17,28 +17,23 @@
     text-decoration-line:none;
 }
 
-/* .jumbotron {
-    background-color: black; 
-} */
-
-
-/* style="background-color: black; color: white" */
-
 .jumbotron {
-    color: white;
+    /* color: white; */
+    color: rgb(247, 206, 102);
     font-weight: bolder;
     /* The BACKGROUND image used */
-    /* background: url("../images/logogoldroller.png"); */
+    /* background: url("../images/logogoldlong.png"); */
     background: url("../images/steamEngineBig.jpg");
     /* Full height */
     height: 100%; 
     /* Center and scale the image nicely */
     background-position: center;
-    /* background-repeat: no-repeat; */ /* WORKS */
-    /* background-repeat: no-repeat repeat; */
     background-size: cover;
-    
-    /* My previous find */
-    /* background-repeat:repeat-y; */
-    /* background-size: 100%; */
 }
+
+#add-train-image {
+    background-color: black; 
+    margin-left:100px;
+    /* float: right; */
+}
+

@@ -10,3 +10,5 @@ __09/27/18:__ Got forEach working and presenting it correctly. Removed JSON into
 __09/27/18:__ Converted all time calcs/displays to rely on \*Snap named variables
 
 __09/28/18:__ Code Cleanup and add figure / background.
+
+__09/28/18:__ Changed color scheme.
